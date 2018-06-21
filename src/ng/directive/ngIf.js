@@ -78,7 +78,7 @@
     </file>
   </example>
  */
-var ngIfDirective = ['$animate', '$compile', '$parse', function($animate, $compile, $parse) {
+var ngIfDirective = ['$compile', '$parse', function($compile, $parse) {
   return {
     multiElement: true,
     transclude: 'element',
@@ -108,7 +108,7 @@ var ngIfDirective = ['$animate', '$compile', '$parse', function($animate, $compi
                 block = {
                   clone: clone
                 };
-                $animate.enter(clone, $element.parent(), $element);
+                domInsert(clone, $element.parent(), $element)
               });
             }
           } else {
@@ -122,9 +122,8 @@ var ngIfDirective = ['$animate', '$compile', '$parse', function($animate, $compi
             }
             if (block) {
               previousElements = getBlockNodes(block.clone);
-              $animate.leave(previousElements).done(function(response) {
-                if (response !== false) previousElements = null;
-              });
+              previousElements.remove();
+              previousElements = null;
               block = null;
             }
           }
