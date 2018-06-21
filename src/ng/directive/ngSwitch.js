@@ -137,7 +137,7 @@
     </file>
   </example>
  */
-var ngSwitchDirective = ['$animate', '$compile', '$parse', function($animate, $compile, $parse) {
+var ngSwitchDirective = ['$compile', '$parse', function($compile, $parse) {
   return {
     require: 'ngSwitch',
 
@@ -149,14 +149,7 @@ var ngSwitchDirective = ['$animate', '$compile', '$parse', function($animate, $c
       var watchExpr = attr.ngSwitch || attr.on,
           selectedTranscludes = [],
           selectedElements = [],
-          previousLeaveAnimations = [],
           selectedScopes = [];
-
-      var spliceFactory = function(array, index) {
-          return function(response) {
-            if (response !== false) array.splice(index, 1);
-          };
-      };
 
       var initValue, ngExp = $parse(watchExpr);
       if (ngExp.oneTime && isDefined(initValue = ngExp(scope))) {
@@ -168,16 +161,10 @@ var ngSwitchDirective = ['$animate', '$compile', '$parse', function($animate, $c
       function ngSwitchWatchAction(value) {
         var i, ii;
 
-        // Start with the last, in case the array is modified during the loop
-        while (previousLeaveAnimations.length) {
-          $animate.cancel(previousLeaveAnimations.pop());
-        }
-
         for (i = 0, ii = selectedScopes.length; i < ii; ++i) {
           var selected = getBlockNodes(selectedElements[i].clone);
           selectedScopes[i].$destroy();
-          var runner = previousLeaveAnimations[i] = $animate.leave(selected);
-          runner.done(spliceFactory(previousLeaveAnimations, i));
+          selected.remove()
         }
 
         selectedElements.length = 0;
@@ -190,9 +177,8 @@ var ngSwitchDirective = ['$animate', '$compile', '$parse', function($animate, $c
               var anchor = selectedTransclude.element;
               caseElement[caseElement.length++] = $compile.$$createComment('end ngSwitchWhen');
               var block = { clone: caseElement };
-
               selectedElements.push(block);
-              $animate.enter(caseElement, anchor.parent(), anchor);
+              domInsert(caseElement, anchor.parent(), anchor);
             });
           });
         }
