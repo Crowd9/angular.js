@@ -2065,9 +2065,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
   this.$get = [
             '$injector', '$interpolate', '$exceptionHandler', '$templateRequest', '$parse',
-            '$controller', '$rootScope', '$sce', '$animate',
+            '$controller', '$rootScope', '$sce',
     function($injector,   $interpolate,   $exceptionHandler,   $templateRequest,   $parse,
-             $controller,   $rootScope,   $sce,   $animate) {
+             $controller,   $rootScope,   $sce) {
 
     var SIMPLE_ATTR_NAME = /^\w/;
     var specialAttrHolder = window.document.createElement('div');
@@ -2207,7 +2207,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        */
       $addClass: function(classVal) {
         if (classVal && classVal.length > 0) {
-          $animate.addClass(this.$$element, classVal);
+          this.$$element.addClass(classVal);
         }
       },
 
@@ -2224,7 +2224,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
        */
       $removeClass: function(classVal) {
         if (classVal && classVal.length > 0) {
-          $animate.removeClass(this.$$element, classVal);
+          this.$$element.removeClass(classVal);
         }
       },
 
@@ -2243,12 +2243,12 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       $updateClass: function(newClasses, oldClasses) {
         var toAdd = tokenDifference(newClasses, oldClasses);
         if (toAdd && toAdd.length) {
-          $animate.addClass(this.$$element, toAdd);
+          this.$$element.addClass(toAdd);
         }
 
         var toRemove = tokenDifference(oldClasses, newClasses);
         if (toRemove && toRemove.length) {
-          $animate.removeClass(this.$$element, toRemove);
+          this.$$element.removeClass(toRemove);
         }
       },
 

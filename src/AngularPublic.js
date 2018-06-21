@@ -53,12 +53,6 @@
   ngEventDirectives,
 
   $AnchorScrollProvider,
-  $AnimateProvider,
-  $CoreAnimateCssProvider,
-  $$CoreAnimateJsProvider,
-  $$CoreAnimateQueueProvider,
-  $$AnimateRunnerFactoryProvider,
-  $$AnimateAsyncRunFactoryProvider,
   $BrowserProvider,
   $CacheFactoryProvider,
   $ControllerProvider,
@@ -227,12 +221,6 @@ function publishExternalAPI(angular) {
         directive(ngEventDirectives);
       $provide.provider({
         $anchorScroll: $AnchorScrollProvider,
-        $animate: $AnimateProvider,
-        $animateCss: $CoreAnimateCssProvider,
-        $$animateJs: $$CoreAnimateJsProvider,
-        $$animateQueue: $$CoreAnimateQueueProvider,
-        $$AnimateRunner: $$AnimateRunnerFactoryProvider,
-        $$animateAsyncRun: $$AnimateAsyncRunFactoryProvider,
         $browser: $BrowserProvider,
         $cacheFactory: $CacheFactoryProvider,
         $controller: $ControllerProvider,
