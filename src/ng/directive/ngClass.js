@@ -17,6 +17,8 @@ function classDirective(name, selector) {
         var classCounts = element.data('$classCounts');
         var oldModulo = true;
         var oldClassString;
+        var initValue;
+        var ngExp = $parse(attr[name], toClassString);
 
         if (!classCounts) {
           // Use createMap() to prevent class assumptions involving property
@@ -36,7 +38,11 @@ function classDirective(name, selector) {
           scope.$watch(indexWatchExpression, ngClassIndexWatchAction);
         }
 
-        scope.$watch($parse(attr[name], toClassString), ngClassWatchAction);
+        if (ngExp.oneTime && isDefined(initValue = ngExp(scope))) {
+          ngClassWatchAction(initValue);
+        } else {
+          scope.$watch(ngExp, ngClassWatchAction);
+        }
 
         function addClasses(classString) {
           classString = digestClassCounts(split(classString), 1);
