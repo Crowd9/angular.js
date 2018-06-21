@@ -137,7 +137,7 @@
     </file>
   </example>
  */
-var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
+var ngSwitchDirective = ['$animate', '$compile', '$parse', function($animate, $compile, $parse) {
   return {
     require: 'ngSwitch',
 
@@ -158,7 +158,14 @@ var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
           };
       };
 
-      scope.$watch(watchExpr, function ngSwitchWatchAction(value) {
+      var initValue, ngExp = $parse(watchExpr);
+      if (ngExp.oneTime && isDefined(initValue = ngExp(scope))) {
+        ngSwitchWatchAction(initValue);
+      } else {
+        scope.$watch(ngExp, ngSwitchWatchAction);
+      }
+
+      function ngSwitchWatchAction(value) {
         var i, ii;
 
         // Start with the last, in case the array is modified during the loop
@@ -189,7 +196,7 @@ var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
             });
           });
         }
-      });
+      }
     }
   };
 }];
