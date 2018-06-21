@@ -22,6 +22,23 @@ function extractElementNode(element) {
   }
 }
 
+function domInsert(element, parentElement, afterElement) {
+  // if for some reason the previous element was removed
+  // from the dom sometime before this code runs then let's
+  // just stick to using the parent element as the anchor
+  if (afterElement) {
+    var afterNode = extractElementNode(afterElement);
+    if (afterNode && !afterNode.parentNode && !afterNode.previousElementSibling) {
+      afterElement = null;
+    }
+  }
+  if (afterElement) {
+    afterElement.after(element);
+  } else {
+    parentElement.prepend(element);
+  }
+}
+
 function splitClasses(classes) {
   if (isString(classes)) {
     classes = classes.split(' ');
