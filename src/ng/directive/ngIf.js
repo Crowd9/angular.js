@@ -78,7 +78,7 @@
     </file>
   </example>
  */
-var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
+var ngIfDirective = ['$animate', '$compile', '$parse', function($animate, $compile, $parse) {
   return {
     multiElement: true,
     transclude: 'element',
@@ -88,8 +88,15 @@ var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
     $$tlb: true,
     link: function($scope, $element, $attr, ctrl, $transclude) {
         var block, childScope, previousElements;
-        $scope.$watch($attr.ngIf, function ngIfWatchAction(value) {
+        var initValue, ngExp = $parse($attr.ngIf);
 
+        if (ngExp.oneTime && isDefined(initValue = ngExp($scope))) {
+          ngIfWatchAction(initValue);
+        } else {
+          $scope.$watch(ngExp, ngIfWatchAction);
+        }
+
+        function ngIfWatchAction(value) {
           if (value) {
             if (!childScope) {
               $transclude(function(clone, newScope) {
@@ -121,7 +128,7 @@ var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
               block = null;
             }
           }
-        });
+        }
     }
   };
 }];
