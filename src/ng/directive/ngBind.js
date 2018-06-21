@@ -51,7 +51,7 @@
      </file>
    </example>
  */
-var ngBindDirective = ['$compile', function($compile) {
+var ngBindDirective = ['$compile', '$parse', function($compile, $parse) {
   return {
     restrict: 'AC',
     compile: function ngBindCompile(templateElement) {
@@ -59,9 +59,18 @@ var ngBindDirective = ['$compile', function($compile) {
       return function ngBindLink(scope, element, attr) {
         $compile.$$addBindingInfo(element, attr.ngBind);
         element = element[0];
-        scope.$watch(attr.ngBind, function ngBindWatchAction(value) {
+
+        var initValue, ngExp = $parse(attr.ngBind);
+
+        if (ngExp.oneTime && isDefined(initValue = ngExp(scope))) {
+          ngBindWatchAction(initValue);
+        } else {
+          scope.$watch(ngExp, ngBindWatchAction);
+        }
+
+        function ngBindWatchAction(value) {
           element.textContent = stringify(value);
-        });
+        }
       };
     }
   };
