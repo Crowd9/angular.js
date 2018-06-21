@@ -5,7 +5,6 @@
 
   $CompileProvider,
 
-  htmlAnchorDirective,
   inputDirective,
   hiddenInputBrowserCacheDirective,
   formDirective,
@@ -175,7 +174,6 @@ function publishExternalAPI(angular) {
       });
       $provide.provider('$compile', $CompileProvider).
         directive({
-            a: htmlAnchorDirective,
             input: inputDirective,
             textarea: inputDirective,
             form: formDirective,
