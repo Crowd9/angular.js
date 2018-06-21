@@ -4124,18 +4124,21 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             var initialValue = destination[scopeName] = parentGet(scope);
             initialChanges[scopeName] = new SimpleChange(_UNINITIALIZED_VALUE, destination[scopeName]);
 
-            removeWatch = scope[definition.collection ? '$watchCollection' : '$watch'](parentGet, function parentValueWatchAction(newValue, oldValue) {
-              if (oldValue === newValue) {
-                if (oldValue === initialValue || (isLiteral && equals(oldValue, initialValue))) {
-                  return;
+            if (!(parentGet.oneTime && isDefined(initialValue))) {
+              removeWatch = scope[definition.collection ? '$watchCollection' : '$watch'](parentGet, function parentValueWatchAction(newValue, oldValue) {
+                if (oldValue === newValue) {
+                  if (oldValue === initialValue || (isLiteral && equals(oldValue, initialValue))) {
+                    return;
+                  }
+                  oldValue = initialValue;
                 }
-                oldValue = initialValue;
-              }
-              recordChanges(scopeName, newValue, oldValue);
-              destination[scopeName] = newValue;
-            });
+                recordChanges(scopeName, newValue, oldValue);
+                destination[scopeName] = newValue;
+              });
 
-            removeWatchCollection.push(removeWatch);
+              removeWatchCollection.push(removeWatch);
+            }
+
             break;
 
           case '&':
