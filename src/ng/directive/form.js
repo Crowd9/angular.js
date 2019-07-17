@@ -43,11 +43,3 @@ var ngFormDirective = formDirectiveFactory(true);
 function setupValidity() {
   throw new Error('setupValidity is removed')
 }
-
-function addSetValidityMethod(input) {
-  if (version.codeName === 'snapshot') {
-    return input
-  } else {
-    throw new Error('addSetValidityMethod is removed')
-  }
-}
