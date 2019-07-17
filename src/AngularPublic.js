@@ -6,8 +6,6 @@
   $CompileProvider,
 
   scriptDirective,
-  selectDirective,
-  optionDirective,
   ngBindDirective,
   ngBindHtmlDirective,
   ngBindTemplateDirective,
@@ -28,20 +26,7 @@
   ngSwitchDirective,
   ngSwitchWhenDirective,
   ngSwitchDefaultDirective,
-  ngOptionsDirective,
   ngTranscludeDirective,
-  ngModelDirective,
-  ngListDirective,
-  ngChangeDirective,
-  patternDirective,
-  patternDirective,
-  requiredDirective,
-  requiredDirective,
-  minlengthDirective,
-  minlengthDirective,
-  maxlengthDirective,
-  maxlengthDirective,
-  ngModelOptionsDirective,
   ngAttributeAliasDirectives,
   ngEventDirectives,
 
@@ -163,8 +148,6 @@ function publishExternalAPI(angular) {
       $provide.provider('$compile', $CompileProvider).
         directive({
             script: scriptDirective,
-            select: selectDirective,
-            option: optionDirective,
             ngBind: ngBindDirective,
             ngBindHtml: ngBindHtmlDirective,
             ngBindTemplate: ngBindTemplateDirective,
@@ -185,20 +168,7 @@ function publishExternalAPI(angular) {
             ngSwitch: ngSwitchDirective,
             ngSwitchWhen: ngSwitchWhenDirective,
             ngSwitchDefault: ngSwitchDefaultDirective,
-            ngOptions: ngOptionsDirective,
-            ngTransclude: ngTranscludeDirective,
-            ngModel: ngModelDirective,
-            ngList: ngListDirective,
-            ngChange: ngChangeDirective,
-            pattern: patternDirective,
-            ngPattern: patternDirective,
-            required: requiredDirective,
-            ngRequired: requiredDirective,
-            minlength: minlengthDirective,
-            ngMinlength: minlengthDirective,
-            maxlength: maxlengthDirective,
-            ngMaxlength: maxlengthDirective,
-            ngModelOptions: ngModelOptionsDirective
+            ngTransclude: ngTranscludeDirective
         }).
         directive(ngAttributeAliasDirectives).
         directive(ngEventDirectives);
