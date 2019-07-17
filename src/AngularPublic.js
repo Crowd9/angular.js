@@ -7,7 +7,6 @@
 
   inputDirective,
   hiddenInputBrowserCacheDirective,
-  formDirective,
   scriptDirective,
   selectDirective,
   optionDirective,
@@ -19,7 +18,6 @@
   ngClassOddDirective,
   ngCloakDirective,
   ngControllerDirective,
-  ngFormDirective,
   ngHideDirective,
   ngIfDirective,
   ngIncludeDirective,
@@ -171,7 +169,6 @@ function publishExternalAPI(angular) {
         directive({
             input: inputDirective,
             textarea: inputDirective,
-            form: formDirective,
             script: scriptDirective,
             select: selectDirective,
             option: optionDirective,
@@ -183,7 +180,6 @@ function publishExternalAPI(angular) {
             ngClassOdd: ngClassOddDirective,
             ngCloak: ngCloakDirective,
             ngController: ngControllerDirective,
-            ngForm: ngFormDirective,
             ngHide: ngHideDirective,
             ngIf: ngIfDirective,
             ngInclude: ngIncludeDirective,
