@@ -1,5 +1,6 @@
 {
   "name": "angular",
+  "version": "1.8.1",
   "license": "MIT",
   "branchVersion": "^1.8.0",
   "branchPattern": "1.8.*",
@@ -9,9 +10,8 @@
     "url": "https://github.com/angular/angular.js.git"
   },
   "engines": {
-    "node": ">=12.14.1",
-    "yarn": ">=1.21.1",
-    "grunt-cli": "^1.2.0"
+    "node": ">=10.15.3",
+    "yarn": ">=1.10.0"
   },
   "scripts": {
     "commit": "git-cz",
