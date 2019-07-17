@@ -1,14 +1,7 @@
 'use strict';
 
-/* global currencyFilter: true,
- dateFilter: true,
- filterFilter: true,
- jsonFilter: true,
- limitToFilter: true,
- lowercaseFilter: true,
- numberFilter: true,
- orderByFilter: true,
- uppercaseFilter: true,
+/* global
+ jsonFilter: true
  */
 
 /**
@@ -148,24 +141,8 @@ function $FilterProvider($provide) {
   ////////////////////////////////////////
 
   /* global
-    currencyFilter: false,
-    dateFilter: false,
-    filterFilter: false,
-    jsonFilter: false,
-    limitToFilter: false,
-    lowercaseFilter: false,
-    numberFilter: false,
-    orderByFilter: false,
-    uppercaseFilter: false
-  */
+    jsonFilter: false
+ */
 
-  register('currency', currencyFilter);
-  register('date', dateFilter);
-  register('filter', filterFilter);
   register('json', jsonFilter);
-  register('limitTo', limitToFilter);
-  register('lowercase', lowercaseFilter);
-  register('number', numberFilter);
-  register('orderBy', orderByFilter);
-  register('uppercase', uppercaseFilter);
 }
