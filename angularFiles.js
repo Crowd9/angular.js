@@ -63,7 +63,6 @@ var angularFiles = {
     'src/ng/directive/ngCsp.js',
     'src/ng/directive/ngEventDirs.js',
     'src/ng/directive/ngIf.js',
-    'src/ng/directive/ngInclude.js',
     'src/ng/directive/ngInit.js',
     'src/ng/directive/ngList.js',
     'src/ng/directive/ngModel.js',

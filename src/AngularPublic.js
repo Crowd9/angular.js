@@ -18,8 +18,6 @@
   ngControllerDirective,
   ngHideDirective,
   ngIfDirective,
-  ngIncludeDirective,
-  ngIncludeFillContentDirective,
   ngInitDirective,
   ngNonBindableDirective,
   ngPluralizeDirective,
@@ -177,7 +175,6 @@ function publishExternalAPI(angular) {
             ngController: ngControllerDirective,
             ngHide: ngHideDirective,
             ngIf: ngIfDirective,
-            ngInclude: ngIncludeDirective,
             ngInit: ngInitDirective,
             ngNonBindable: ngNonBindableDirective,
             ngPluralize: ngPluralizeDirective,
@@ -202,9 +199,6 @@ function publishExternalAPI(angular) {
             maxlength: maxlengthDirective,
             ngMaxlength: maxlengthDirective,
             ngModelOptions: ngModelOptionsDirective
-        }).
-        directive({
-          ngInclude: ngIncludeFillContentDirective
         }).
         directive(ngAttributeAliasDirectives).
         directive(ngEventDirectives);
