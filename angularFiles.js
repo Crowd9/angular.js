@@ -55,7 +55,6 @@ var angularFiles = {
 
     'src/ng/directive/directives.js',
     'src/ng/directive/attrs.js',
-    'src/ng/directive/input.js',
     'src/ng/directive/ngBind.js',
     'src/ng/directive/ngChange.js',
     'src/ng/directive/ngClass.js',

@@ -5,8 +5,6 @@
 
   $CompileProvider,
 
-  inputDirective,
-  hiddenInputBrowserCacheDirective,
   scriptDirective,
   selectDirective,
   optionDirective,
@@ -45,7 +43,6 @@
   minlengthDirective,
   maxlengthDirective,
   maxlengthDirective,
-  ngValueDirective,
   ngModelOptionsDirective,
   ngAttributeAliasDirectives,
   ngEventDirectives,
@@ -167,8 +164,6 @@ function publishExternalAPI(angular) {
       });
       $provide.provider('$compile', $CompileProvider).
         directive({
-            input: inputDirective,
-            textarea: inputDirective,
             script: scriptDirective,
             select: selectDirective,
             option: optionDirective,
@@ -206,12 +201,10 @@ function publishExternalAPI(angular) {
             ngMinlength: minlengthDirective,
             maxlength: maxlengthDirective,
             ngMaxlength: maxlengthDirective,
-            ngValue: ngValueDirective,
             ngModelOptions: ngModelOptionsDirective
         }).
         directive({
-          ngInclude: ngIncludeFillContentDirective,
-          input: hiddenInputBrowserCacheDirective
+          ngInclude: ngIncludeFillContentDirective
         }).
         directive(ngAttributeAliasDirectives).
         directive(ngEventDirectives);
