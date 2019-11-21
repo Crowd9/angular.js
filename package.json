@@ -1,5 +1,6 @@
 {
   "name": "angularjs",
+  "version": "1.6.10",
   "license": "MIT",
   "branchVersion": "^1.6.0",
   "branchPattern": "1.6.*",
