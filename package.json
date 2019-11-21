@@ -19,6 +19,7 @@
     "test-i18n-ucd": "jasmine-node i18n/ucd/spec"
   },
   "devDependencies": {
+    "angular": "1.7.9",
     "angular-benchpress": "0.x.x",
     "benchmark": "1.x.x",
     "bootstrap": "3.1.1",
