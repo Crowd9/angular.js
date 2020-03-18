@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.7.9-patched-by-gleam-v2
+ * @license AngularJS v1.7.9-patched-by-gleam-v3
  * (c) 2010-2018 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -99,7 +99,7 @@ function isValidObjectMaxDepth(maxDepth) {
 function minErr(module, ErrorConstructor) {
   ErrorConstructor = ErrorConstructor || Error;
 
-  var url = 'https://errors.angularjs.org/1.7.9-patched-by-gleam-v2/';
+  var url = 'https://errors.angularjs.org/1.7.9-patched-by-gleam-v3/';
   var regex = url.replace('.', '\\.') + '[\\s\\S]*';
   var errRegExp = new RegExp(regex, 'g');
 
@@ -2805,11 +2805,11 @@ function toDebugString(obj, maxDepth) {
 var version = {
   // These placeholder strings will be replaced by grunt's `build` task.
   // They need to be double- or single-quoted.
-  full: '1.7.9-patched-by-gleam-v2',
+  full: '1.7.9-patched-by-gleam-v3',
   major: 1,
   minor: 7,
   dot: 9,
-  codeName: 'stay-safe'
+  codeName: 'we-will-get-through-this'
 };
 
 
@@ -2957,7 +2957,7 @@ function publishExternalAPI(angular) {
       });
     }
   ])
-  .info({ angularVersion: '1.7.9-patched-by-gleam-v2' });
+  .info({ angularVersion: '1.7.9-patched-by-gleam-v3' });
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
