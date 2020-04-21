@@ -1721,13 +1721,7 @@ function angularInit(element, bootstrap) {
     }
   });
   if (appElement) {
-    if (!isAutoBootstrapAllowed) {
-      window.console.error('AngularJS: disabling automatic bootstrap. <script> protocol indicates ' +
-          'an extension, document.location.href does not match.');
-      return;
-    }
-    config.strictDi = getNgAttribute(appElement, 'strict-di') !== null;
-    bootstrap(appElement, module ? [module] : [], config);
+    console.info('Angular.js modified to launch Gleam\'s galleries ignores ng-app directives!', appElement);
   }
 }
 
