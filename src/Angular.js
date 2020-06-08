@@ -95,6 +95,7 @@
   hasOwnProperty,
   createMap,
   stringify,
+  UNSAFE_restoreLegacyJqLiteXHTMLReplacement,
 
   NODE_TYPE_ELEMENT,
   NODE_TYPE_ATTRIBUTE,
@@ -1965,6 +1966,26 @@ function bindJQuery() {
 
   // Prevent double-proxying.
   bindJQueryFired = true;
+}
+
+/**
+ * @ngdoc function
+ * @name angular.UNSAFE_restoreLegacyJqLiteXHTMLReplacement
+ * @module ng
+ * @kind function
+ *
+ * @description
+ * Restores the pre-1.8 behavior of jqLite that turns XHTML-like strings like
+ * `<div /><span />` to `<div></div><span></span>` instead of `<div><span></span></div>`.
+ * The new behavior is a security fix. Thus, if you need to call this function, please try to adjust
+ * your code for this change and remove your use of this function as soon as possible.
+
+ * Note that this only patches jqLite. If you use jQuery 3.5.0 or newer, please read the
+ * [jQuery 3.5 upgrade guide](https://jquery.com/upgrade-guide/3.5/) for more details
+ * about the workarounds.
+ */
+function UNSAFE_restoreLegacyJqLiteXHTMLReplacement() {
+  JQLite.legacyXHTMLReplacement = true;
 }
 
 /**
