@@ -19,6 +19,7 @@
     "test-i18n-ucd": "jasmine-node i18n/ucd/spec"
   },
   "devDependencies": {
+    "angular": "1.8.0",
     "angular-benchpress": "0.x.x",
     "benchmark": "1.x.x",
     "bootstrap": "3.1.1",
@@ -100,7 +101,6 @@
     "sorted-object": "^1.0.0",
     "stringmap": "^0.2.2"
   },
-  "dependencies": {},
   "resolutions": {
     "//1": "`natives@1.1.0` does not work with Node.js 10.x on Windows 10",
     "//2": "(E.g. see https://github.com/gulpjs/gulp/issues/2162 and https://github.com/nodejs/node/issues/25132.)",
