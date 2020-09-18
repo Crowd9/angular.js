@@ -21,7 +21,6 @@ var angularFiles = {
     'src/ng/controller.js',
     'src/ng/document.js',
     'src/ng/exceptionHandler.js',
-    'src/ng/forceReflow.js',
     'src/ng/http.js',
     'src/ng/httpBackend.js',
     'src/ng/interpolate.js',
