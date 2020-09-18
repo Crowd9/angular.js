@@ -31,7 +31,6 @@
   ngEventDirectives,
 
   $BrowserProvider,
-  $CacheFactoryProvider,
   $ControllerProvider,
   $DateProvider,
   $DocumentProvider,
@@ -57,7 +56,6 @@
   $SceDelegateProvider,
   $SnifferProvider,
   $$TaskTrackerFactoryProvider,
-  $TemplateCacheProvider,
   $TimeoutProvider,
   $WindowProvider,
   $$jqLiteProvider,
@@ -167,7 +165,6 @@ function publishExternalAPI(angular) {
         directive(ngEventDirectives);
       $provide.provider({
         $browser: $BrowserProvider,
-        $cacheFactory: $CacheFactoryProvider,
         $controller: $ControllerProvider,
         $document: $DocumentProvider,
         $$isDocumentHidden: $$IsDocumentHiddenProvider,
@@ -190,7 +187,6 @@ function publishExternalAPI(angular) {
         $sceDelegate: $SceDelegateProvider,
         $sniffer: $SnifferProvider,
         $$taskTrackerFactory: $$TaskTrackerFactoryProvider,
-        $templateCache: $TemplateCacheProvider,
         $timeout: $TimeoutProvider,
         $window: $WindowProvider,
         $$jqLite: $$jqLiteProvider,

@@ -270,10 +270,6 @@ function $HttpProvider() {
    *
    * Object containing default values for all {@link ng.$http $http} requests.
    *
-   * - **`defaults.cache`** - {boolean|Object} - A boolean value or object created with
-   * {@link ng.$cacheFactory `$cacheFactory`} to enable or disable caching of HTTP responses
-   * by default. See {@link $http#caching $http Caching} for more information.
-   *
    * - **`defaults.headers`** - {Object} - Default headers for all $http requests.
    * Refer to {@link ng.$http#setting-http-headers $http} for documentation on
    * setting default headers.
@@ -448,10 +444,8 @@ function $HttpProvider() {
     }
   });
 
-  this.$get = ['$browser', '$httpBackend', '$$cookieReader', '$cacheFactory', '$rootScope', '$q', '$injector', '$sce',
-      function($browser, $httpBackend, $$cookieReader, $cacheFactory, $rootScope, $q, $injector, $sce) {
-
-    var defaultCache = $cacheFactory('$http');
+  this.$get = ['$browser', '$httpBackend', '$$cookieReader', '$rootScope', '$q', '$injector', '$sce',
+      function($browser, $httpBackend, $$cookieReader, $rootScope, $q, $injector, $sce) {
 
     /**
      * Make sure that default param serializer is exposed as a function
@@ -481,7 +475,6 @@ function $HttpProvider() {
      * @kind function
      * @name $http
      * @requires ng.$httpBackend
-     * @requires $cacheFactory
      * @requires $rootScope
      * @requires $q
      * @requires $injector
@@ -674,39 +667,6 @@ function $HttpProvider() {
      *   })
      * });
      * ```
-     *
-     *
-     * ## Caching
-     *
-     * {@link ng.$http `$http`} responses are not cached by default. To enable caching, you must
-     * set the config.cache value or the default cache value to TRUE or to a cache object (created
-     * with {@link ng.$cacheFactory `$cacheFactory`}). If defined, the value of config.cache takes
-     * precedence over the default cache value.
-     *
-     * In order to:
-     *   * cache all responses - set the default cache value to TRUE or to a cache object
-     *   * cache a specific response - set config.cache value to TRUE or to a cache object
-     *
-     * If caching is enabled, but neither the default cache nor config.cache are set to a cache object,
-     * then the default `$cacheFactory("$http")` object is used.
-     *
-     * The default cache value can be set by updating the
-     * {@link ng.$http#defaults `$http.defaults.cache`} property or the
-     * {@link $httpProvider#defaults `$httpProvider.defaults.cache`} property.
-     *
-     * When caching is enabled, {@link ng.$http `$http`} stores the response from the server using
-     * the relevant cache object. The next time the same request is made, the response is returned
-     * from the cache without sending a request to the server.
-     *
-     * Take note that:
-     *
-     *   * Only GET and JSONP requests are cached.
-     *   * The cache key is the request URL including search parameters; headers are not considered.
-     *   * Cached responses are returned asynchronously, in the same way as responses from the server.
-     *   * If multiple identical requests are made using the same cache, which is not yet populated,
-     *     one request will be made to the server and remaining requests will return the same response.
-     *   * A cache-control header on the response does not affect if or how responses are cached.
-     *
      *
      * ## Interceptors
      *
@@ -908,9 +868,6 @@ function $HttpProvider() {
      *      by registering it as a {@link auto.$provide#service service}.
      *      The default serializer is the {@link $httpParamSerializer $httpParamSerializer};
      *      alternatively, you can use the {@link $httpParamSerializerJQLike $httpParamSerializerJQLike}
-     *    - **cache** – `{boolean|Object}` – A boolean value or object created with
-     *      {@link ng.$cacheFactory `$cacheFactory`} to enable or disable caching of the HTTP response.
-     *      See {@link $http#caching $http Caching} for more information.
      *    - **timeout** – `{number|Promise}` – timeout in milliseconds, or {@link ng.$q promise}
      *      that should abort the request when resolved.
      *
@@ -999,7 +956,7 @@ function $HttpProvider() {
           $scope.code = null;
           $scope.response = null;
 
-          $http({method: $scope.method, url: $scope.url, cache: $templateCache}).
+          $http({method: $scope.method, url: $scope.url}).
             then(function(response) {
               $scope.status = response.status;
               $scope.data = response.data;
@@ -1059,6 +1016,10 @@ function $HttpProvider() {
 
       if (!isString($sce.valueOf(requestConfig.url))) {
         throw minErr('$http')('badreq', 'Http request configuration url must be a string or a $sce trusted object.  Received: {0}', requestConfig.url);
+      }
+
+      if (requestConfig.cache) {
+        throw new Error('$http does not support cache anymore! (https://github.com/Crowd9/angular.js)');
       }
 
       var config = extend({
@@ -1365,13 +1326,11 @@ function $HttpProvider() {
      * Makes the request.
      *
      * !!! ACCESSES CLOSURE VARS:
-     * $httpBackend, defaults, $log, $rootScope, defaultCache, $http.pendingRequests
+     * $httpBackend, defaults, $log, $rootScope, $http.pendingRequests
      */
     function sendReq(config, reqData) {
       var deferred = $q.defer(),
           promise = deferred.promise,
-          cache,
-          cachedResp,
           reqHeaders = config.headers,
           isJsonp = lowercase(config.method) === 'jsonp',
           url = config.url;
@@ -1395,50 +1354,17 @@ function $HttpProvider() {
       $http.pendingRequests.push(config);
       promise.then(removePendingReq, removePendingReq);
 
-      if ((config.cache || defaults.cache) && config.cache !== false &&
-          (config.method === 'GET' || config.method === 'JSONP')) {
-        cache = isObject(config.cache) ? config.cache
-            : isObject(/** @type {?} */ (defaults).cache)
-              ? /** @type {?} */ (defaults).cache
-              : defaultCache;
+      var xsrfValue = urlIsAllowedOrigin(config.url)
+          ? $$cookieReader()[config.xsrfCookieName || defaults.xsrfCookieName]
+          : undefined;
+      if (xsrfValue) {
+        reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;
       }
 
-      if (cache) {
-        cachedResp = cache.get(url);
-        if (isDefined(cachedResp)) {
-          if (isPromiseLike(cachedResp)) {
-            // cached request has already been sent, but there is no response yet
-            cachedResp.then(resolvePromiseWithResult, resolvePromiseWithResult);
-          } else {
-            // serving from cache
-            if (isArray(cachedResp)) {
-              resolvePromise(cachedResp[1], cachedResp[0], shallowCopy(cachedResp[2]), cachedResp[3], cachedResp[4]);
-            } else {
-              resolvePromise(cachedResp, 200, {}, 'OK', 'complete');
-            }
-          }
-        } else {
-          // put the promise for the non-transformed response into cache as a placeholder
-          cache.put(url, promise);
-        }
-      }
-
-
-      // if we won't have the response in cache, set the xsrf headers and
-      // send the request to the backend
-      if (isUndefined(cachedResp)) {
-        var xsrfValue = urlIsAllowedOrigin(config.url)
-            ? $$cookieReader()[config.xsrfCookieName || defaults.xsrfCookieName]
-            : undefined;
-        if (xsrfValue) {
-          reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;
-        }
-
-        $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
-            config.withCredentials, config.responseType,
-            createApplyHandlers(config.eventHandlers),
-            createApplyHandlers(config.uploadEventHandlers));
-      }
+      $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
+          config.withCredentials, config.responseType,
+          createApplyHandlers(config.eventHandlers),
+          createApplyHandlers(config.uploadEventHandlers));
 
       return promise;
 
@@ -1467,20 +1393,10 @@ function $HttpProvider() {
 
       /**
        * Callback registered to $httpBackend():
-       *  - caches the response if desired
        *  - resolves the raw $http promise
        *  - calls $apply
        */
       function done(status, response, headersString, statusText, xhrStatus) {
-        if (cache) {
-          if (isSuccess(status)) {
-            cache.put(url, [status, response, parseHeaders(headersString), statusText, xhrStatus]);
-          } else {
-            // remove promise from the cache
-            cache.remove(url);
-          }
-        }
-
         function resolveHttpPromise() {
           resolvePromise(response, status, headersString, statusText, xhrStatus);
         }
