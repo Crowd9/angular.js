@@ -30,7 +30,6 @@
   ngAttributeAliasDirectives,
   ngEventDirectives,
 
-  $AnchorScrollProvider,
   $BrowserProvider,
   $CacheFactoryProvider,
   $ControllerProvider,
@@ -170,7 +169,6 @@ function publishExternalAPI(angular) {
         directive(ngAttributeAliasDirectives).
         directive(ngEventDirectives);
       $provide.provider({
-        $anchorScroll: $AnchorScrollProvider,
         $browser: $BrowserProvider,
         $cacheFactory: $CacheFactoryProvider,
         $controller: $ControllerProvider,
