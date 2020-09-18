@@ -29,7 +29,6 @@ var angularFiles = {
     'src/ng/intervalFactory.js',
     'src/ng/jsonpCallbacks.js',
     'src/ng/locale.js',
-    'src/ng/location.js',
     'src/ng/log.js',
     'src/ng/parse.js',
     'src/ng/q.js',
