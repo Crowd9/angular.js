@@ -65,7 +65,6 @@
   $TemplateRequestProvider,
   $$TestabilityProvider,
   $TimeoutProvider,
-  $$RAFProvider,
   $WindowProvider,
   $$jqLiteProvider,
   $$CookieReaderProvider
@@ -206,7 +205,6 @@ function publishExternalAPI(angular) {
         $$testability: $$TestabilityProvider,
         $timeout: $TimeoutProvider,
         $window: $WindowProvider,
-        $$rAF: $$RAFProvider,
         $$jqLite: $$jqLiteProvider,
         $$Map: $$MapProvider,
         $$cookieReader: $$CookieReaderProvider

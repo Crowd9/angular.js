@@ -970,9 +970,9 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
       return animateCssConstructor;
     }]);
 
-    $provide.decorator('$animate', ['$delegate', '$timeout', '$browser', '$$rAF', '$animateCss', '$$animateJs',
+    $provide.decorator('$animate', ['$delegate', '$timeout', '$browser', '$animateCss', '$$animateJs',
                                     '$$forceReflow', '$$animateAsyncRun', '$rootScope',
-                            function($delegate,   $timeout,   $browser,   $$rAF,   $animateCss,   $$animateJs,
+                            function($delegate,   $timeout,   $browser,   $animateCss,   $$animateJs,
                                      $$forceReflow,   $$animateAsyncRun,  $rootScope) {
       var animate = {
         queue: [],
@@ -1018,11 +1018,6 @@ angular.mock.animate = angular.module('ngAnimateMock', ['ng'])
           var doNextRun, somethingFlushed = false;
           do {
             doNextRun = false;
-
-            if ($$rAF.queue.length) {
-              $$rAF.flush();
-              doNextRun = somethingFlushed = true;
-            }
 
             if ($$animateAsyncRun.flush()) {
               doNextRun = somethingFlushed = true;
@@ -2388,34 +2383,6 @@ angular.mock.$TimeoutDecorator = ['$delegate', '$browser', function($delegate, $
   return $delegate;
 }];
 
-angular.mock.$RAFDecorator = ['$delegate', function($delegate) {
-  var rafFn = function(fn) {
-    var index = rafFn.queue.length;
-    rafFn.queue.push(fn);
-    return function() {
-      rafFn.queue.splice(index, 1);
-    };
-  };
-
-  rafFn.queue = [];
-  rafFn.supported = $delegate.supported;
-
-  rafFn.flush = function() {
-    if (rafFn.queue.length === 0) {
-      throw new Error('No rAF callbacks present');
-    }
-
-    var length = rafFn.queue.length;
-    for (var i = 0; i < length; i++) {
-      rafFn.queue[i]();
-    }
-
-    rafFn.queue = rafFn.queue.slice(i);
-  };
-
-  return rafFn;
-}];
-
 /**
  *
  */
@@ -2611,7 +2578,6 @@ angular.module('ngMock', ['ng']).provider({
   $verifyNoPendingTasks: angular.mock.$VerifyNoPendingTasksProvider
 }).config(['$provide', '$compileProvider', function($provide, $compileProvider) {
   $provide.decorator('$timeout', angular.mock.$TimeoutDecorator);
-  $provide.decorator('$$rAF', angular.mock.$RAFDecorator);
   $provide.decorator('$rootScope', angular.mock.$RootScopeDecorator);
   $provide.decorator('$controller', createControllerDecorator($compileProvider));
   $provide.decorator('$httpBackend', angular.mock.$httpBackendDecorator);

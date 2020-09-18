@@ -33,7 +33,6 @@ var angularFiles = {
     'src/ng/log.js',
     'src/ng/parse.js',
     'src/ng/q.js',
-    'src/ng/raf.js',
     'src/ng/rootScope.js',
     'src/ng/rootElement.js',
     'src/ng/sanitizeUri.js',
