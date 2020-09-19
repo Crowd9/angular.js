@@ -56,8 +56,7 @@
   $$TaskTrackerFactoryProvider,
   $TimeoutProvider,
   $WindowProvider,
-  $$jqLiteProvider,
-  $$CookieReaderProvider
+  $$jqLiteProvider
 */
 
 
@@ -186,8 +185,7 @@ function publishExternalAPI(angular) {
         $timeout: $TimeoutProvider,
         $window: $WindowProvider,
         $$jqLite: $$jqLiteProvider,
-        $$Map: $$MapProvider,
-        $$cookieReader: $$CookieReaderProvider
+        $$Map: $$MapProvider
       });
     }
   ])

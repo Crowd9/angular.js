@@ -305,12 +305,6 @@ function $HttpProvider() {
    *  - If the `Content-Type` is `application/json` or the response looks like JSON,
    *    deserialize it using a JSON parser.
    *
-   * - **`defaults.xsrfCookieName`** - {string} - Name of cookie containing the XSRF token.
-   * Defaults value is `'XSRF-TOKEN'`.
-   *
-   * - **`defaults.xsrfHeaderName`** - {string} - Name of HTTP header to populate with the
-   * XSRF token. Defaults value is `'X-XSRF-TOKEN'`.
-   *
    */
   var defaults = this.defaults = {
     // transform incoming response data
@@ -330,9 +324,6 @@ function $HttpProvider() {
       put:    shallowCopy(CONTENT_TYPE_APPLICATION_JSON),
       patch:  shallowCopy(CONTENT_TYPE_APPLICATION_JSON)
     },
-
-    xsrfCookieName: 'XSRF-TOKEN',
-    xsrfHeaderName: 'X-XSRF-TOKEN',
 
     paramSerializer: '$httpParamSerializer',
 
@@ -382,70 +373,8 @@ function $HttpProvider() {
    */
   var interceptorFactories = this.interceptors = [];
 
-  /**
-   * @ngdoc property
-   * @name $httpProvider#xsrfTrustedOrigins
-   * @description
-   *
-   * Array containing URLs whose origins are trusted to receive the XSRF token. See the
-   * {@link ng.$http#security-considerations Security Considerations} sections for more details on
-   * XSRF.
-   *
-   * **Note:** An "origin" consists of the [URI scheme](https://en.wikipedia.org/wiki/URI_scheme),
-   * the [hostname](https://en.wikipedia.org/wiki/Hostname) and the
-   * [port number](https://en.wikipedia.org/wiki/Port_(computer_networking). For `http:` and
-   * `https:`, the port number can be omitted if using th default ports (80 and 443 respectively).
-   * Examples: `http://example.com`, `https://api.example.com:9876`
-   *
-   * <div class="alert alert-warning">
-   *   It is not possible to trust specific URLs/paths. The `path`, `query` and `fragment` parts
-   *   of a URL will be ignored. For example, `https://foo.com/path/bar?query=baz#fragment` will be
-   *   treated as `https://foo.com`, meaning that **all** requests to URLs starting with
-   *   `https://foo.com/` will include the XSRF token.
-   * </div>
-   *
-   * @example
-   *
-   * ```js
-   * // App served from `https://example.com/`.
-   * angular.
-   *   module('xsrfTrustedOriginsExample', []).
-   *   config(['$httpProvider', function($httpProvider) {
-   *     $httpProvider.xsrfTrustedOrigins.push('https://api.example.com');
-   *   }]).
-   *   run(['$http', function($http) {
-   *     // The XSRF token will be sent.
-   *     $http.get('https://api.example.com/preferences').then(...);
-   *
-   *     // The XSRF token will NOT be sent.
-   *     $http.get('https://stats.example.com/activity').then(...);
-   *   }]);
-   * ```
-   */
-  var xsrfTrustedOrigins = this.xsrfTrustedOrigins = [];
-
-  /**
-   * @ngdoc property
-   * @name $httpProvider#xsrfWhitelistedOrigins
-   * @description
-   *
-   * @deprecated
-   * sinceVersion="1.8.1"
-   *
-   * This property is deprecated. Use {@link $httpProvider#xsrfTrustedOrigins xsrfTrustedOrigins}
-   * instead.
-   */
-  Object.defineProperty(this, 'xsrfWhitelistedOrigins', {
-    get: function() {
-      return this.xsrfTrustedOrigins;
-    },
-    set: function(origins) {
-      this.xsrfTrustedOrigins = origins;
-    }
-  });
-
-  this.$get = ['$browser', '$httpBackend', '$$cookieReader', '$rootScope', '$q', '$injector', '$sce',
-      function($browser, $httpBackend, $$cookieReader, $rootScope, $q, $injector, $sce) {
+  this.$get = ['$browser', '$httpBackend', '$rootScope', '$q', '$injector', '$sce',
+      function($browser, $httpBackend, $rootScope, $q, $injector, $sce) {
 
     /**
      * Make sure that default param serializer is exposed as a function
@@ -464,11 +393,6 @@ function $HttpProvider() {
       reversedInterceptors.unshift(isString(interceptorFactory)
           ? $injector.get(interceptorFactory) : $injector.invoke(interceptorFactory));
     });
-
-    /**
-     * A function to check request URLs against a list of allowed origins.
-     */
-    var urlIsAllowedOrigin = urlIsAllowedOriginFactory(xsrfTrustedOrigins);
 
     /**
      * @ngdoc service
@@ -805,29 +729,11 @@ function $HttpProvider() {
      * authentication cookie with a [salt](https://en.wikipedia.org/wiki/Salt_(cryptography&#41;)
      * for added security.
      *
-     * The header will &mdash; by default &mdash; **not** be set for cross-domain requests. This
-     * prevents unauthorized servers (e.g. malicious or compromised 3rd-party APIs) from gaining
-     * access to your users' XSRF tokens and exposing them to Cross Site Request Forgery. If you
-     * want to, you can trust additional origins to also receive the XSRF token, by adding them
-     * to {@link ng.$httpProvider#xsrfTrustedOrigins xsrfTrustedOrigins}. This might be
-     * useful, for example, if your application, served from `example.com`, needs to access your API
-     * at `api.example.com`.
-     * See {@link ng.$httpProvider#xsrfTrustedOrigins $httpProvider.xsrfTrustedOrigins} for
-     * more details.
-     *
      * <div class="alert alert-danger">
      *   **Warning**<br />
-     *   Only trusted origins that you have control over and make sure you understand the
+     *   Only whitelist origins that you have control over and make sure you understand the
      *   implications of doing so.
      * </div>
-     *
-     * The name of the cookie and the header can be specified using the `xsrfCookieName` and
-     * `xsrfHeaderName` properties of either `$httpProvider.defaults` at config-time,
-     * `$http.defaults` at run-time, or the per-request config object.
-     *
-     * In order to prevent collisions in environments where multiple AngularJS apps share the
-     * same domain or subdomain, we recommend that each application uses a unique cookie name.
-     *
      *
      * @param {object} config Object describing the request to be made and how it should be
      *    processed. The object has following properties:
@@ -846,9 +752,6 @@ function $HttpProvider() {
      *      The handler will be called in the context of a `$apply` block.
      *    - **uploadEventHandlers** - `{Object}` - Event listeners to be bound to the XMLHttpRequest upload
      *      object. To bind events to the XMLHttpRequest object, use `eventHandlers`.
-     *      The handler will be called in the context of a `$apply` block.
-     *    - **xsrfHeaderName** – `{string}` – Name of HTTP header to populate with the XSRF token.
-     *    - **xsrfCookieName** – `{string}` – Name of cookie containing the XSRF token.
      *    - **transformRequest** –
      *      `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
      *      transform function or an array of such functions. The transform function takes the http
@@ -941,8 +844,8 @@ function $HttpProvider() {
 <file name="script.js">
   angular.module('httpExample', [])
     .config(['$sceDelegateProvider', function($sceDelegateProvider) {
-      // We must add the JSONP endpoint that we are using to the trusted list to show that we trust it
-      $sceDelegateProvider.trustedResourceUrlList([
+      // We must whitelist the JSONP endpoint that we are using to show that we trust it
+      $sceDelegateProvider.resourceUrlWhitelist([
         'self',
         'https://angularjs.org/**'
       ]);
@@ -1203,8 +1106,8 @@ function $HttpProvider() {
      *
      * Note that, since JSONP requests are sensitive because the response is given full access to the browser,
      * the url must be declared, via {@link $sce} as a trusted resource URL.
-     * You can trust a URL by adding it to the trusted resource URL list via
-     * {@link $sceDelegateProvider#trustedResourceUrlList  `$sceDelegateProvider.trustedResourceUrlList`} or
+     * You can trust a URL by adding it to the whitelist via
+     * {@link $sceDelegateProvider#resourceUrlWhitelist  `$sceDelegateProvider.resourceUrlWhitelist`} or
      * by explicitly trusting the URL via {@link $sce#trustAsResourceUrl `$sce.trustAsResourceUrl(url)`}.
      *
      * You should avoid generating the URL for the JSONP request from user provided data.
@@ -1353,13 +1256,6 @@ function $HttpProvider() {
 
       $http.pendingRequests.push(config);
       promise.then(removePendingReq, removePendingReq);
-
-      var xsrfValue = urlIsAllowedOrigin(config.url)
-          ? $$cookieReader()[config.xsrfCookieName || defaults.xsrfCookieName]
-          : undefined;
-      if (xsrfValue) {
-        reqHeaders[(config.xsrfHeaderName || defaults.xsrfHeaderName)] = xsrfValue;
-      }
 
       $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
           config.withCredentials, config.responseType,

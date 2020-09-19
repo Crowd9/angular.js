@@ -39,7 +39,6 @@ var angularFiles = {
     'src/ng/timeout.js',
     'src/ng/urlUtils.js',
     'src/ng/window.js',
-    'src/ng/cookieReader.js',
 
     'src/ng/filter.js',
     'src/ng/filter/filters.js',

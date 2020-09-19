@@ -125,34 +125,6 @@ function urlIsSameOriginAsBaseUrl(requestUrl) {
 }
 
 /**
- * Create a function that can check a URL's origin against a list of allowed/trusted origins.
- * The current location's origin is implicitly trusted.
- *
- * @param {string[]} trustedOriginUrls - A list of URLs (strings), whose origins are trusted.
- *
- * @returns {Function} - A function that receives a URL (string or parsed URL object) and returns
- *     whether it is of an allowed origin.
- */
-function urlIsAllowedOriginFactory(trustedOriginUrls) {
-  var parsedAllowedOriginUrls = [originUrl].concat(trustedOriginUrls.map(urlResolve));
-
-  /**
-   * Check whether the specified URL (string or parsed URL object) has an origin that is allowed
-   * based on a list of trusted-origin URLs. The current location's origin is implicitly
-   * trusted.
-   *
-   * @param {string|Object} requestUrl - The URL to be checked (provided as a string that will be
-   *     resolved or a parsed URL object).
-   *
-   * @returns {boolean} - Whether the specified URL is of an allowed origin.
-   */
-  return function urlIsAllowedOrigin(requestUrl) {
-    var parsedUrl = urlResolve(requestUrl);
-    return parsedAllowedOriginUrls.some(urlsAreSameOrigin.bind(null, parsedUrl));
-  };
-}
-
-/**
  * Determine if two URLs share the same origin.
  *
  * @param {string|Object} url1 - First URL to compare as a string or a normalized URL in the form of
