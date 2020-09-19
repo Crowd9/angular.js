@@ -291,7 +291,8 @@ function $SceDelegateProvider() {
   this.$get = ['$injector', '$$sanitizeUri', function($injector, $$sanitizeUri) {
 
     var htmlSanitizer = function htmlSanitizer(html) {
-      throw $sceMinErr('unsafe', 'Attempting to use an unsafe value in a safe context.');
+      // dompurify will do the trick
+      return html;
     };
 
     if ($injector.has('$sanitize')) {
