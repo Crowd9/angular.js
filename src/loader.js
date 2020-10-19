@@ -18,7 +18,7 @@ function setupModuleLoader(window) {
     return obj[name] || (obj[name] = factory());
   }
 
-  var angular = ensure(window, 'angular', Object);
+  var angular = ensure(module.exports, 'angular', Object);
 
   // We need to expose `angular.$$minErr` to modules such as `ngResource` that reference it during bootstrap
   angular.$$minErr = angular.$$minErr || minErr;

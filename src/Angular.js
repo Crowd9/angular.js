@@ -157,7 +157,7 @@ var
     ngMinErr          = minErr('ng'),
 
     /** @name angular */
-    angular           = window.angular || (window.angular = {}),
+    angular           = module.exports.angular || (module.exports.angular = {}),
     angularModule,
     uid               = 0;
 
