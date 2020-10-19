@@ -60,8 +60,7 @@ var angularFiles = {
     'src/ng/directive/ngSwitch.js',
     'src/ng/directive/ngTransclude.js',
     'src/angular.bind.js',
-    'src/publishExternalApis.js',
-    'src/ngLocale/angular-locale_en-us.js'
+    'src/publishExternalApis.js'
   ],
 
   'angularLoader': [

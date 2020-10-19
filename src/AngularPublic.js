@@ -125,7 +125,7 @@ function publishExternalAPI(angular) {
 
   angularModule = setupModuleLoader(window);
 
-  angularModule('ng', ['ngLocale'], ['$provide',
+  angularModule('ng', [], ['$provide',
     function ngModule($provide) {
       // $$sanitizeUriProvider needs to be before $compileProvider as it is used by it.
       $provide.provider({
