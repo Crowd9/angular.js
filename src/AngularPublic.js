@@ -5,7 +5,6 @@
 
   $CompileProvider,
 
-  scriptDirective,
   ngBindDirective,
   ngBindHtmlDirective,
   ngClassDirective,
@@ -134,7 +133,6 @@ function publishExternalAPI(angular) {
       });
       $provide.provider('$compile', $CompileProvider).
         directive({
-            script: scriptDirective,
             ngBind: ngBindDirective,
             ngBindHtml: ngBindHtmlDirective,
             ngClass: ngClassDirective,

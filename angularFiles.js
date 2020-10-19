@@ -59,7 +59,6 @@ var angularFiles = {
     'src/ng/directive/ngStyle.js',
     'src/ng/directive/ngSwitch.js',
     'src/ng/directive/ngTransclude.js',
-    'src/ng/directive/script.js',
     'src/angular.bind.js',
     'src/publishExternalApis.js',
     'src/ngLocale/angular-locale_en-us.js'
