@@ -21,54 +21,10 @@ module.exports = function(grunt) {
           generateCspCssFile: true
         }
       },
-      loader: {
-        dest: 'build/angular-loader.js',
-        src: util.wrap(files['angularLoader'], 'loader')
-      },
-      touch: {
-        dest: 'build/angular-touch.js',
-        src: util.wrap(files['angularModules']['ngTouch'], 'module')
-      },
       mocks: {
         dest: 'build/angular-mocks.js',
         src: util.wrap(files['angularModules']['ngMock'], 'module'),
         strict: false
-      },
-      sanitize: {
-        dest: 'build/angular-sanitize.js',
-        src: util.wrap(files['angularModules']['ngSanitize'], 'module')
-      },
-      resource: {
-        dest: 'build/angular-resource.js',
-        src: util.wrap(files['angularModules']['ngResource'], 'module')
-      },
-      messageformat: {
-        dest: 'build/angular-message-format.js',
-        src: util.wrap(files['angularModules']['ngMessageFormat'], 'module')
-      },
-      messages: {
-        dest: 'build/angular-messages.js',
-        src: util.wrap(files['angularModules']['ngMessages'], 'module')
-      },
-      animate: {
-        dest: 'build/angular-animate.js',
-        src: util.wrap(files['angularModules']['ngAnimate'], 'module')
-      },
-      route: {
-        dest: 'build/angular-route.js',
-        src: util.wrap(files['angularModules']['ngRoute'], 'module')
-      },
-      cookies: {
-        dest: 'build/angular-cookies.js',
-        src: util.wrap(files['angularModules']['ngCookies'], 'module')
-      },
-      aria: {
-        dest: 'build/angular-aria.js',
-        src: util.wrap(files['angularModules']['ngAria'], 'module')
-      },
-      parseext: {
-        dest: 'build/angular-parse-ext.js',
-        src: util.wrap(files['angularModules']['ngParseExt'], 'module')
       }
     },
   });
