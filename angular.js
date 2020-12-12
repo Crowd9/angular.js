@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.8.1-local+sha.258c05485
+ * @license AngularJS v1.8.1-local+sha.f49d70130
  * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
@@ -31,7 +31,7 @@
 
   function minErr(module, ErrorConstructor) {
     ErrorConstructor = ErrorConstructor || Error;
-    var url = 'https://errors.angularjs.org/1.8.1-local+sha.258c05485/';
+    var url = 'https://errors.angularjs.org/1.8.1-local+sha.f49d70130/';
     var regex = url.replace('.', '\\.') + '[\\s\\S]*';
     var errRegExp = new RegExp(regex, 'g');
     return function () {
@@ -1208,7 +1208,7 @@
   }
 
   var version = {
-    full: '1.8.1-local+sha.258c05485',
+    full: '1.8.1-local+sha.f49d70130',
     major: 1,
     minor: 8,
     dot: 1,
@@ -1310,7 +1310,7 @@
         $$Map: $$MapProvider
       });
     }]).info({
-      angularVersion: '1.8.1-local+sha.258c05485'
+      angularVersion: '1.8.1-local+sha.f49d70130'
     });
   }
 
