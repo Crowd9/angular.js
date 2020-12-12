@@ -16,14 +16,14 @@
     "build": "grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
-    "angular": "1.8.1",
-    "eslint": "^7.11.0",
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "angular": "1.8.2",
+    "eslint": "^7.15.0",
     "grunt": "^1.3.0",
     "grunt-cli": "^1.3.2",
     "lodash": "^4.17.20",
-    "semver": "^7.3.2",
+    "semver": "^7.3.4",
     "shelljs": "^0.8.4"
   }
 }
