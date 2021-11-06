@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.6.10-patched-by-gleam-v5
+ * @license AngularJS v1.6.10-patched-by-gleam-v6
  * (c) 2010-2018 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -88,7 +88,7 @@ function isValidObjectMaxDepth(maxDepth) {
 function minErr(module, ErrorConstructor) {
   ErrorConstructor = ErrorConstructor || Error;
 
-  var url = 'https://errors.angularjs.org/1.6.10-patched-by-gleam-v5/';
+  var url = 'https://errors.angularjs.org/1.6.10-patched-by-gleam-v6/';
   var regex = url.replace('.', '\\.') + '[\\s\\S]*';
   var errRegExp = new RegExp(regex, 'g');
 
@@ -2829,11 +2829,11 @@ function toDebugString(obj, maxDepth) {
 var version = {
   // These placeholder strings will be replaced by grunt's `build` task.
   // They need to be double- or single-quoted.
-  full: '1.6.10-patched-by-gleam-v5',
+  full: '1.6.10-patched-by-gleam-v6',
   major: 1,
   minor: 6,
   dot: 10,
-  codeName: 'nothing-but-a-routine-v2'
+  codeName: 'hello-john'
 };
 
 
@@ -2980,7 +2980,7 @@ function publishExternalAPI(angular) {
       });
     }
   ])
-  .info({ angularVersion: '1.6.10-patched-by-gleam-v5' });
+  .info({ angularVersion: '1.6.10-patched-by-gleam-v6' });
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
