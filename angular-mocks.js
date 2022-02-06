@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.8.1-local+sha.b9f0d29b9
+ * @license AngularJS v1.8.2-local+sha.cda700bf4
  * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
@@ -522,7 +522,7 @@
 
   angular.mock.TzDate.prototype = Date.prototype;
   angular.mock.animate = angular.module('ngAnimateMock', ['ng']).info({
-    angularVersion: '1.8.1-local+sha.b9f0d29b9'
+    angularVersion: '1.8.2-local+sha.cda700bf4'
   }).config(['$provide', function ($provide) {
     $provide.factory('$$forceReflow', function () {
       function reflowFn() {
@@ -1208,12 +1208,12 @@
     $provide.decorator('$controller', createControllerDecorator($compileProvider));
     $provide.decorator('$httpBackend', angular.mock.$httpBackendDecorator);
   }]).info({
-    angularVersion: '1.8.1-local+sha.b9f0d29b9'
+    angularVersion: '1.8.2-local+sha.cda700bf4'
   });
   angular.module('ngMockE2E', ['ng']).config(['$provide', function ($provide) {
     $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
   }]).info({
-    angularVersion: '1.8.1-local+sha.b9f0d29b9'
+    angularVersion: '1.8.2-local+sha.cda700bf4'
   });
   angular.mock.e2e = {};
   angular.mock.e2e.$httpBackendDecorator = ['$rootScope', '$timeout', '$delegate', '$browser', createHttpBackendMock];
