@@ -13,6 +13,9 @@
     "node": ">=8.12.0",
     "yarn": ">=1.10.0"
   },
+  "scripts": {
+    "build": "rm -rf build/ && grunt build && cp -R build/ ."
+  },
   "devDependencies": {
     "grunt": "^1.4.1",
     "grunt-cli": "^1.4.3",
