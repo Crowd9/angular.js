@@ -11,7 +11,7 @@
     "yarn": ">=1.10.0"
   },
   "scripts": {
-    "build": "grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
+    "build": "rm -rf build/ && grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
