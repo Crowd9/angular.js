@@ -1,9 +1,7 @@
 {
   "name": "angular",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "license": "MIT",
-  "branchVersion": "^1.7.0",
-  "branchPattern": "1.8.*",
   "repository": {
     "type": "git",
     "url": "https://github.com/angular/angular.js.git"
@@ -13,13 +11,13 @@
     "yarn": ">=1.10.0"
   },
   "scripts": {
-    "build": "grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
+    "build": "rm -rf build/ && grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.0",
     "angular": "1.8.2",
-    "eslint": "^8.2.0",
+    "eslint": "^8.8.0",
     "grunt": "^1.4.1",
     "grunt-cli": "^1.4.3",
     "lodash": "^4.17.21",
