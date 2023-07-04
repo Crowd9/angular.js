@@ -23,5 +23,8 @@
     "lodash": "^4.17.21",
     "semver": "^7.5.3",
     "shelljs": "^0.8.5"
+  },
+  "resolutions": {
+    "semver": "^7.5.3"
   }
 }
