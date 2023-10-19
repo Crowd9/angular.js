@@ -14,17 +14,17 @@
     "build": "rm -rf build/ && grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.6",
-    "@babel/core": "^7.22.6",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
     "angular": "1.8.2",
-    "eslint": "^8.44.0",
+    "eslint": "^8.51.0",
     "grunt": "^1.6.1",
     "grunt-cli": "^1.4.3",
     "lodash": "^4.17.21",
-    "semver": "^7.5.3",
+    "semver": "^7.5.4",
     "shelljs": "^0.8.5"
   },
   "resolutions": {
-    "semver": "^7.5.3"
+    "semver": "^7.5.4"
   }
 }
