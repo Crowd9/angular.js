@@ -14,8 +14,8 @@
     "build": "rm -rf build/ && grunt build && babel --no-babelrc --no-comments --compact false build/ -d ./"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.6",
-    "@babel/core": "^7.22.6",
+    "@babel/cli": "^7.23.0",
+    "@babel/core": "^7.23.2",
     "angular": "1.8.2",
     "eslint": "^8.44.0",
     "grunt": "^1.6.1",
