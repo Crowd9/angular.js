@@ -22,5 +22,9 @@
     "lodash": "^4.17.21",
     "semver": "^7.3.5",
     "shelljs": "^0.8.5"
-  }
+  },
+  "files": [
+    "build/angular-mocks.js",
+    "build/angular.js"
+  ]
 }
