@@ -17,14 +17,16 @@
     "build": "rm -rf build/ && grunt build && cp -R build/ ."
   },
   "devDependencies": {
-    "grunt": "^1.4.1",
+    "grunt": "^1.6.1",
     "grunt-cli": "^1.4.3",
     "lodash": "^4.17.21",
-    "semver": "^7.3.5",
+    "semver": "^7.6.2",
     "shelljs": "^0.8.5"
   },
+  "main": "index.js",
   "files": [
-    "build/angular-mocks.js",
-    "build/angular.js"
+    "angular-mocks.js",
+    "angular-csp.css",
+    "angular.js"
   ]
 }
