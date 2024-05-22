@@ -27,6 +27,7 @@
   "resolutions": {
     "semver": "^7.5.4"
   },
+  "main": "index.js",
   "files": [
     "angular-mocks.js",
     "angular.js"
