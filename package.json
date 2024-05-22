@@ -23,8 +23,10 @@
     "semver": "^7.3.5",
     "shelljs": "^0.8.5"
   },
+  "main": "index.js",
   "files": [
-    "build/angular-mocks.js",
-    "build/angular.js"
+    "angular-mocks.js",
+    "angular-csp.css",
+    "angular.js"
   ]
 }
