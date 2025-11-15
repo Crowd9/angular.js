@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.8.2-local+sha.d88bce3e9
+ * @license AngularJS v1.8.2-local+sha.35a97cfca
  * (c) 2010-2020 Google LLC. http://angularjs.org
  * License: MIT
  */
@@ -26,7 +26,7 @@
   }
   function minErr(module, ErrorConstructor) {
     ErrorConstructor = ErrorConstructor || Error;
-    var url = 'https://errors.angularjs.org/1.8.2-local+sha.d88bce3e9/';
+    var url = 'https://errors.angularjs.org/1.8.2-local+sha.35a97cfca/';
     var regex = url.replace('.', '\\.') + '[\\s\\S]*';
     var errRegExp = new RegExp(regex, 'g');
     return function () {
@@ -973,7 +973,7 @@
     return obj;
   }
   var version = {
-    full: '1.8.2-local+sha.d88bce3e9',
+    full: '1.8.2-local+sha.35a97cfca',
     major: 1,
     minor: 8,
     dot: 2,
@@ -1074,7 +1074,7 @@
         $$Map: $$MapProvider
       });
     }]).info({
-      angularVersion: '1.8.2-local+sha.d88bce3e9'
+      angularVersion: '1.8.2-local+sha.35a97cfca'
     });
   }
   JQLite.expando = 'ng339';
